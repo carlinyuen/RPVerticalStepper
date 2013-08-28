@@ -1,6 +1,14 @@
 UIVerticalStepper
 =================
 
+### Fixes
+* Fixed bug when user drags out of the control and lets go, will keep
+  incrementing.
+* Fixed bug where when user changes the max / min values, the
+  userInteractionEnabled and button states aren't updated.
+
+-----------------
+
 ![Stepper Example](https://s3.amazonaws.com/iwasrobbed/open+source/rpverticalstepper.png)
 
 A simple vertical stepper control for iOS that is similar in function to the UIStepper control.  Personally, I think it was short-sighted of Apple to only release a horizontal stepper control, so this was created to remedy that.
