@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
-@interface ViewController : UIViewController <RPVerticalStepperDelegate>
+@interface ViewController : UIViewController <UIVerticalStepperDelegate>
 
 @property (nonatomic, weak) IBOutlet UILabel *stepperViaDelegateLabel;
-@property (nonatomic, weak) IBOutlet RPVerticalStepper *stepperViaDelegate;
+@property (nonatomic, weak) IBOutlet UIVerticalStepper *stepperViaDelegate;
 
 @property (nonatomic, weak) IBOutlet UILabel *stepperLabel;
-@property (nonatomic, weak) IBOutlet RPVerticalStepper *stepper;
+@property (nonatomic, weak) IBOutlet UIVerticalStepper *stepper;
 
 @end

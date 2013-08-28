@@ -1,8 +1,9 @@
 //
-//  RPVerticalStepper.h
-//  RPVerticalStepper
+//  UIVerticalStepper.h
+//  UIVerticalStepper
 //
 //  Created by Rob Phillips on 2/25/13.
+//	Edited by Carlin Yuen on 8/28/13.
 //  Copyright (c) 2013 Rob Phillips. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,19 +30,19 @@ float const kRPStepperTopButtonHeight = 31.0;
 float const kRPStepperBottomButtonHeight = 32.0;
 float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButtonHeight;
 
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
-@interface RPVerticalStepper () {
+@interface UIVerticalStepper () {
 	UIButton *incrementButton;
 	UIButton *decrementButton;
 }
 @end
 
-@implementation RPVerticalStepper
+@implementation UIVerticalStepper
 
 #pragma mark - Control Lifecycle
 
-// Called when the RPVerticalStepper control is set up programmatically
+// Called when the UIVerticalStepper control is set up programmatically
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, kRPStepperWidth, kRPStepperHeight)];
@@ -49,7 +50,7 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
     return self;
 }
 
-// Called when a control subclass of RPVerticalStepper is placed in a NIB file
+// Called when a control subclass of UIVerticalStepper is placed in a NIB file
 - (void)awakeFromNib
 {
     [self setDefaultState];
@@ -97,11 +98,19 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 - (UIButton *)stepperButtonWithFrame:(CGRect)frame bgImageNamed:(NSString *)bgImageName imageNamed:(NSString *)imageName
 {
     UIButton *stepperButton = [[UIButton alloc] initWithFrame:frame];
-    [stepperButton setBackgroundImage:[UIImage imageNamed:bgImageName] forState:UIControlStateNormal];
-	[stepperButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [stepperButton setBackgroundImage:[UIImage imageNamed:bgImageName]
+		forState:UIControlStateNormal];
+	[stepperButton setImage:[UIImage imageNamed:imageName]
+		forState:UIControlStateNormal];
 	[stepperButton setAutoresizingMask:UIViewAutoresizingNone];
-    [stepperButton addTarget:self action:@selector(didPressButton:) forControlEvents:UIControlEventTouchDown];
-    [stepperButton addTarget:self action:@selector(didEndButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+    [stepperButton addTarget:self action:@selector(didEndButtonPress:)
+		forControlEvents:UIControlEventTouchDragExit];
+    [stepperButton addTarget:self action:@selector(didPressButton:)
+		forControlEvents:UIControlEventTouchDragEnter];
+    [stepperButton addTarget:self action:@selector(didPressButton:)
+		forControlEvents:UIControlEventTouchDown];
+    [stepperButton addTarget:self action:@selector(didEndButtonPress:)
+		forControlEvents:UIControlEventTouchUpInside];
     return stepperButton;
 }
 
@@ -111,19 +120,24 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 {
 	if (minValue > _maximumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"RPVerticalStepper: Minimum value cannot be greater than the maximum value."
+												  reason:@"UIVerticalStepper: Minimum value cannot be greater than the maximum value."
 												userInfo:nil];
 		@throw ex;
 	}
 	
 	_minimumValue = minValue;
+	
+	// Fix current value if min value is greater
+	if (self.value < minValue) {
+		self.value = minValue;
+	}
 }
 
 - (void)setStepValue:(CGFloat)stepValue
 {
 	if (stepValue <= 0) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"RPVerticalStepper: Step value cannot be less than or equal to zero."
+												  reason:@"UIVerticalStepper: Step value cannot be less than or equal to zero."
 												userInfo:nil];
 		@throw ex;
 	}
@@ -135,12 +149,17 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 {
 	if (maxValue < _minimumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"RPVerticalStepper: Maximum value cannot be less than the minimum value."
+												  reason:@"UIVerticalStepper: Maximum value cannot be less than the minimum value."
 												userInfo:nil];
 		@throw ex;
 	}
 	
 	_maximumValue = maxValue;
+	
+	// Fix current value if max value is less
+	if (self.value > maxValue) {
+		self.value = maxValue;
+	}
 }
 
 - (void)setValue:(CGFloat)val

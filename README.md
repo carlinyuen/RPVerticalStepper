@@ -1,4 +1,4 @@
-RPVerticalStepper
+UIVerticalStepper
 =================
 
 ![Stepper Example](https://s3.amazonaws.com/iwasrobbed/open+source/rpverticalstepper.png)
@@ -24,7 +24,7 @@ Note: **RPVerticalStepper** is a subclass of **UIControl** so it inherits all ch
 
 ## Change Callback Options ##
 * Use the control in the standard way and hook up an `IBAction` to the `Value Changed` event in Interface Builder
-* Or have your view controller conform to the `RPVerticalStepperDelegate` protocol and then use the `stepperValueDidChange:` method to know when the stepper value has changed 
+* Or have your view controller conform to the `UIVerticalStepperDelegate` protocol and then use the `stepperValueDidChange:` method to know when the stepper value has changed
 * Both of the above methods are shown in the example project
 
 ## Quick Examples ##
@@ -38,12 +38,12 @@ In the `.h` header file:
 
 ```objc
 #import <UIKit/UIKit.h>
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
 @interface ViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UILabel *stepperLabel;
-@property (nonatomic, weak) IBOutlet RPVerticalStepper *stepper;
+@property (nonatomic, weak) IBOutlet UIVerticalStepper *stepper;
 
 @end
 ```
@@ -58,7 +58,7 @@ In the `.m` implementation file:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     // Set some different defaults
     self.stepper.value = 1.0f;
     self.stepper.minimumValue = -100.0f;
@@ -68,7 +68,7 @@ In the `.m` implementation file:
 }
 
 // This is called from the control event hooked up to the control in the Storyboard
-- (IBAction)stepperDidChange:(RPVerticalStepper *)stepper
+- (IBAction)stepperDidChange:(UIVerticalStepper *)stepper
 {
     self.stepperLabel.text = [NSString stringWithFormat:@"%.f", stepper.value];
 }
@@ -83,4 +83,5 @@ See the `LICENSE` file for more details.
 
 ## Attribution ##
 
+Based off iwasrobbed's [RPVerticalStepper](https://github.com/iwasrobbed/RPVerticalStepper)
 Inspiration for this control from: [PAStepper](https://github.com/mperovic/PAStepper)

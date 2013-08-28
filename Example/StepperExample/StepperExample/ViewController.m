@@ -32,7 +32,7 @@
 #pragma mark - Delegate Method
 
 // This is the optional delegate callback method
-- (void)stepperValueDidChange:(RPVerticalStepper *)stepper
+- (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
     self.stepperViaDelegateLabel.text = [NSString stringWithFormat:@"%.f", stepper.value];
 }
@@ -40,7 +40,7 @@
 #pragma mark - Standard Method
 
 // This is called from the control event hooked up to the control in the Storyboard
-- (IBAction)stepperDidChange:(RPVerticalStepper *)stepper
+- (IBAction)stepperDidChange:(UIVerticalStepper *)stepper
 {
     self.stepperLabel.text = [NSString stringWithFormat:@"%.f", stepper.value];
 }
