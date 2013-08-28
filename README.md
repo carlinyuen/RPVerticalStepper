@@ -5,7 +5,7 @@ UIVerticalStepper
 
 A simple vertical stepper control for iOS that is similar in function to the UIStepper control.  Personally, I think it was short-sighted of Apple to only release a horizontal stepper control, so this was created to remedy that.
 
-Note: **RPVerticalStepper** is a subclass of **UIControl** so it inherits all characteristics of a typical control object.
+Note: **UIVerticalStepper** is a subclass of **UIControl** so it inherits all characteristics of a typical control object.
 
 ## Options ##
 * Uses floats so your output can be either a float value or you can change the precision (via **NSString**'s `stringWithFormat` method) to show it as whole number.
