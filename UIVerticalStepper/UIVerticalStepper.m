@@ -25,10 +25,10 @@
 // THE SOFTWARE.
 
 // These constants define the control frame of 35.0 width and 63.0 height
-float const kRPStepperWidth = 35.0;
-float const kRPStepperTopButtonHeight = 31.0;
-float const kRPStepperBottomButtonHeight = 32.0;
-float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButtonHeight;
+CGFloat const kRPStepperWidth = 35.0;
+CGFloat const kRPStepperTopButtonHeight = 31.0;
+CGFloat const kRPStepperBottomButtonHeight = 32.0;
+CGFloat const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButtonHeight;
 
 #import "UIVerticalStepper.h"
 
@@ -78,14 +78,14 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
     
     // Init the increment button
     incrementButton = [self stepperButtonWithFrame:CGRectMake(0.0, 0.0, kRPStepperWidth, kRPStepperTopButtonHeight)
-                                      bgImageNamed:@"stepperTopButton.png"
-                                        imageNamed:@"stepperPlusSymbol"];
+        bgImageNamed:@"stepperTopButton.png"
+        imageNamed:@"stepperPlusSymbol"];
 	[self addSubview:incrementButton];
     
 	// Init the decrement button
     decrementButton = [self stepperButtonWithFrame:CGRectMake(0.0, kRPStepperTopButtonHeight, kRPStepperWidth, kRPStepperBottomButtonHeight)
-                                      bgImageNamed:@"stepperBottomButton.png"
-                                        imageNamed:@"stepperMinusSymbol"];
+        bgImageNamed:@"stepperBottomButton.png"
+        imageNamed:@"stepperMinusSymbol"];
 	[self addSubview:decrementButton];
     
     // Check if we need to enable/disable a button
@@ -104,13 +104,12 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 		forState:UIControlStateNormal];
 	[stepperButton setAutoresizingMask:UIViewAutoresizingNone];
     [stepperButton addTarget:self action:@selector(didEndButtonPress:)
-		forControlEvents:UIControlEventTouchDragExit];
+		forControlEvents:UIControlEventTouchDragExit 
+            | UIControlEventTouchUpInside 
+            | UIControlEventTouchCancel]; 
     [stepperButton addTarget:self action:@selector(didPressButton:)
-		forControlEvents:UIControlEventTouchDragEnter];
-    [stepperButton addTarget:self action:@selector(didPressButton:)
-		forControlEvents:UIControlEventTouchDown];
-    [stepperButton addTarget:self action:@selector(didEndButtonPress:)
-		forControlEvents:UIControlEventTouchUpInside];
+		forControlEvents:UIControlEventTouchDragEnter 
+            | UIControlEventTouchDown];
     return stepperButton;
 }
 
@@ -120,8 +119,8 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 {
 	if (minValue > _maximumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"UIVerticalStepper: Minimum value cannot be greater than the maximum value."
-												userInfo:nil];
+			reason:@"UIVerticalStepper: Minimum value cannot be greater than the maximum value."
+			userInfo:nil];
 		@throw ex;
 	}
 	
@@ -140,8 +139,8 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 {
 	if (stepValue <= 0) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"UIVerticalStepper: Step value cannot be less than or equal to zero."
-												userInfo:nil];
+			reason:@"UIVerticalStepper: Step value cannot be less than or equal to zero."
+			userInfo:nil];
 		@throw ex;
 	}
 	
@@ -152,8 +151,8 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 {
 	if (maxValue < _minimumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"UIVerticalStepper: Maximum value cannot be less than the minimum value."
-												userInfo:nil];
+            reason:@"UIVerticalStepper: Maximum value cannot be less than the minimum value."
+			userInfo:nil];
 		@throw ex;
 	}
 	
